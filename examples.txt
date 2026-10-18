@@ -1,0 +1,52 @@
+## en
+Hi Lead, this is the Integrations Engineer. I wanted to let you know that I have finished fixing the contacts import for the CL13 client. The cl-lookup function was deployed as version 263aa210, and if anything goes wrong you can roll back to version ea8ed0e6. All 412 contacts were re-imported successfully with zero errors. The full log is saved at ~/work/logs/contacts-import.log. No action is needed from you, but QC agent should spot-check ten records.
+
+## house
+TL;DR: DONE. contacts import fixed for CL13; cl-lookup 263aa210 (rollback ea8ed0e6); 412 contacts re-imported, 0 errors.
+D: deployed cl-lookup 263aa210
+R: QC agent spot-check 10 records
+F: ~/work/logs/contacts-import.log
+A: none for LEAD
+
+## v1
+@INT>LEAD P2 CL13 DONE contacts.import fixed fn=cl-lookup v=263aa210 rb=ea8ed0e6 n=412 err=0 f=~/work/logs/contacts-import.log nx=QC:spot10
+
+## json_pretty
+{
+  "frm": "INT",
+  "to": "LEAD",
+  "pri": 2,
+  "client": "CL13",
+  "verb": "DONE",
+  "obj": "contacts.import",
+  "status": "fixed",
+  "fn": "cl-lookup",
+  "ver": "263aa210",
+  "rollback": "ea8ed0e6",
+  "n": 412,
+  "err": 0,
+  "file": "~/work/logs/contacts-import.log",
+  "next": "QC:spot10"
+}
+
+## json_min
+{"frm":"INT","to":"LEAD","pri":2,"client":"CL13","verb":"DONE","obj":"contacts.import","status":"fixed","fn":"cl-lookup","ver":"263aa210","rollback":"ea8ed0e6","n":412,"err":0,"file":"~/work/logs/contacts-import.log","next":"QC:spot10"}
+
+## toon
+frm: INT
+to: LEAD
+pri: 2
+client: CL13
+verb: DONE
+obj: contacts.import
+status: fixed
+fn: cl-lookup
+ver: 263aa210
+rollback: ea8ed0e6
+n: 412
+err: 0
+file: ~/work/logs/contacts-import.log
+next: QC:spot10
+
+## b64_v1
+QElOVD5MRUFEIFAyIENMMTMgRE9ORSBjb250YWN0cy5pbXBvcnQgZml4ZWQgZm49Y2wtbG9va3VwIHY9MjYzYWEyMTAgcmI9ZWE4ZWQwZTYgbj00MTIgZXJyPTAgZj1+L3dvcmsvbG9ncy9jb250YWN0cy1pbXBvcnQubG9nIG54PVFDOnNwb3QxMA==
