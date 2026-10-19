@@ -31,7 +31,7 @@ Prepend `adopt/HDR.txt` to the top of the agent's profile/system prompt. Then us
 (Note: the paste-in header previously lived at `patch12/HDR.txt`; it now lives at `adopt/HDR.txt`.)
 
 ## Files
-- `PROTOCOL-v1.md` — full spec (rules 1–14; rule 14 = ICX object codes)
+- `PROTOCOL-v1.md` — full spec (rules 1–14, 17; rule 14 = ICX object codes, rule 17 = REC-LABEL)
 - `codebook.yaml` — verbs, priorities, agents, lanes, objects, fields
 - `examples.txt` — same handoff in English, house style, ICOM, JSON, etc.
 - `AGENT-INSTRUCTIONS.md` — prompt template for an ICOM router agent
