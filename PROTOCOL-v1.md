@@ -96,3 +96,10 @@ Stall-fallback direct messages are allowed for internal traffic only. Client sen
 - ICOM format for everything else, incl. each agent's own chat display text, status, summaries.
 - English otherwise only when the owner explicitly asks.
 - Agents' own chat display = ICOM always, even when the owner reads it. English to the owner goes through LEAD, or only when the owner explicitly asks in that chat. Direct per-agent owner orders stand.
+
+## Rule 14: ICX object codes
+- The header `object` slot uses ICX (Iron Concept indeX), a Dewey-style concept code: class.division.section, coarse to fine, e.g. `pr.voice.intake~cfg`.
+- Every prefix is a valid code, so routing and search work by prefix. The lane/client stays in the `LANE` slot, never inside the object.
+- Exact values (IDs, amounts, dates, paths) stay in `key=val` tokens, never in the object.
+- Unknown concept: send `x.<word>`; the ICOM router places it on the next codebook review. Unregistered codes are NAKed with `why=icx.unk`.
+- Spec, example codebook, relative index and validator: https://github.com/rstan251/icx

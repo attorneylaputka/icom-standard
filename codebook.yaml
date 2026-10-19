@@ -1,6 +1,6 @@
 # ICOM codebook — owned by the ICOM router agent. Append-only; never reuse a retired code.
-version: 1.4.0
-updated: 2026-10-18
+version: 1.5.0
+updated: 2026-10-19
 rules: {max_code_len: 6, case: UPPER for agents/clients/verbs, lower.dot for objects}
 verbs:       # header slot 4; maps to house codes D/R/F/O/Q/A
   GO: start/approved to proceed
@@ -75,7 +75,7 @@ clients:     # generic placeholders
   CL24: client-24
   CL25: client-25
   INT0: internal / no client
-objects:     # lower.dot nouns
+objects:     # ICX concept codes (https://github.com/rstan251/icx); legacy lower.dot nouns below are tombstoned to ICX on next review
   contacts.import: contact import
   voice.agent: voice agent
   srv.migrate: server migration
