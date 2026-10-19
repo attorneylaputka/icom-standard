@@ -103,3 +103,12 @@ Stall-fallback direct messages are allowed for internal traffic only. Client sen
 - Exact values (IDs, amounts, dates, paths) stay in `key=val` tokens, never in the object.
 - Unknown concept: send `x.<word>`; the ICOM router places it on the next codebook review. Unregistered codes are NAKed with `why=icx.unk`.
 - Spec, example codebook, relative index and validator: https://github.com/rstan251/icx
+
+## Rule 17: REC-LABEL (2026-10-19)
+- Every agent-originated recommended action surfaced to the owner (human) is prefixed `AGENTCODE: action` (AGENTCODE = originating agent, codebook.yaml `agents`).
+- Examples: `LEGAL: send notice`; `CFO: create pricing`.
+- LEAD keeps the label unchanged when translating to English for the owner (rules 12, 12a).
+- No unlabeled recommendations to the owner.
+
+## Changelog
+- 2026-10-19: rule 17 REC-LABEL added.
