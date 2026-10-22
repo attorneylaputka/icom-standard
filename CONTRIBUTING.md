@@ -1,12 +1,10 @@
-# Contributing to ICOM
+# Contributing to this ICOM book
 
-Contributions are welcome.
+This fork is Laputka Law Office's working copy of ICOM. The protocol itself comes from Iron Noodle Technologies. Changes here are the firm's codes and instructions.
 
-- **Questions, bugs, ideas:** open an issue.
-- **Changes:** open a pull request against `main` with a short description of why.
-- **New codes** (agents, objects, fields, verbs): propose them in an issue or PR with
-  - the proposed code (≤6 chars; UPPER for agents/lanes/verbs, lower.dot for objects),
-  - its meaning,
-  - at least one example message using it.
-- The codebook is append-only: bump the semver, tombstone retired codes, never reuse one.
-- Keep ICOM messages one line (header + key=val tokens). No secrets, tokens or keys in examples.
+- Questions, bugs, and ideas: open an issue.
+- Changes: open a pull request against `main`. Charles Laputka reviews it. Do not merge it for him.
+- A new assistant, lane, topic, or field is a weekly proposal from ICOM to MARIAG. It is not in force until MARIAG sends GO on `org.codebk`. Give the code (6 characters or fewer; UPPER for an assistant or a lane; lower.dot for a topic), its meaning, and one example line.
+- A new topic is also an edit to the firm's ICX book, https://github.com/attorneylaputka/icx , so the two books match.
+- After codebook 2.0.0 the book is append-only. Tombstone a retired code. Never reuse one. Version 2.0.0 replaced the upstream sample registry instead of tombstoning it, because that sample was not a live firm book. Do not repeat that exception.
+- Keep a message to one line. No client name, matter name, company name, email address, phone number, account number, or secret in an example or a code.

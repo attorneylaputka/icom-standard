@@ -1,112 +1,231 @@
-# ICOM codebook — owned by the ICOM router agent. Append-only; never reuse a retired code.
-version: 1.5.0
-updated: 2026-10-19
-rules: {max_code_len: 6, case: UPPER for agents/clients/verbs, lower.dot for objects}
-verbs:       # header slot 4; maps to house codes D/R/F/O/Q/A
-  GO: start/approved to proceed
-  HOLD: pause, do not proceed
-  DONE: completed (house D)
-  BLOCKED: cannot proceed, needs ask=
-  REC: recommendation (house R); action follows verb
-  FYI: info only, no reply expected
-  ASK: question needing answer (house Q)
-  ACK: received/understood
-  NAK: rejected/cannot parse
-priority: {P0: drop everything, P1: today, P2: this week, P3: whenever}
-agents:
-  LEAD: lead agent (coordinates; only agent that speaks English to the owner)
-  CTO: CTO / technical lead
-  CRM: CRM lead
-  COMMS: comms (client-facing copy, plain English)
-  INT: integrations engineer
-  INFRA: infra engineer
-  VOICE: voice engineer
-  GATE: release gate / approver for client sends
-  QC: QC agent
-  ICOM: ICOM router (codebook owner)
-  ALL: broadcast
-  OWNER: owner (human)
-  # added 1.1.0
-  TTL: tech team leader
-  SEC: security engineer
-  CFO: finance
-  HRM: HR
-  LIB: librarian / knowledge base
-  RISK: risk manager
-  LLMR: LLM researcher
-  POLL: inbox poller
-  WHOOK: webhook bot
-  CRMB1: CRM bot 1
-  CRMB2: CRM bot 2
-  CL01SUP: client-01 support
-  # added 1.2.0
-  SYNC: sync watchdog
-  AUD: auditor
-  CBF: client bot factory
-  CCM: command center manager
-  LEGAL: legal & compliance
-  BDL: biz dev lead
-  # added 1.3.0
-  CLBOT: client-facing bot (a2a via ICOM only; verbs FYI/ASK/ACK/NAK/DONE/BLOCKED)
-clients:     # generic placeholders
-  CL01: client-01
-  CL02: client-02
-  CL03: client-03
-  CL04: client-04
-  CL05: client-05
-  CL06: client-06
-  CL07: client-07
-  CL08: client-08
-  CL09: client-09
-  CL10: client-10
-  CL11: client-11
-  CL12: client-12
-  CL13: client-13
-  CL14: client-14
-  CL15: client-15
-  CL16: client-16
-  CL17: client-17
-  CL18: client-18
-  CL19: client-19
-  CL20: client-20
-  CL21: client-21
-  CL22: client-22
-  CL23: client-23
-  CL24: client-24
-  CL25: client-25
-  INT0: internal / no client
-objects:     # ICX concept codes (https://github.com/rstan251/icx); legacy lower.dot nouns below are tombstoned to ICX on next review
-  contacts.import: contact import
-  voice.agent: voice agent
-  srv.migrate: server migration
-  camp.reengage: re-engagement email campaign
-  audit.nightly: QC nightly audit
-  crm.contact: CRM contact
-  crm.opp: CRM opportunity
-  dns.a: DNS A record
-  ssl: TLS certificate
-  # added 1.4.0
-  lead.new: new lead intake
-  lead.book: lead booked consult
-  bot.health: client bot health check
-  esc.human: escalate to human
-  agent.inbox: per-agent a2a mailbox
-fields:      # key=value keys
-  f: file path (reference, do not restate contents)
-  fn: function/service name
-  v: version/deploy id
+# ICOM codebook — Laputka Law Office.
+#
+# Editor: ICOM is the only assistant who edits this file.
+# Approver: MARIAG (Maria G, chief of staff) approves new codes from ICOM's weekly proposal.
+# Append-only after this version. A retired code is tombstoned and never reused.
+#
+# The generic sample registry shipped upstream through 1.5.0 (LEAD, COMMS, the CL lanes,
+# legacy objects such as contacts.import) was not a live firm book. It is replaced here
+# rather than tombstoned, the same decision as the firm's ICX book. Do not repeat that
+# exception. The next edit appends or tombstones.
+#
+# Topics in `objects` are the firm ICX codes, copied so a message can be checked offline.
+# Canonical book and plain-English index:
+#   https://github.com/attorneylaputka/icx  (examples/codebook.yaml, examples/index.yaml)
+# A code never carries a client name, a matter name, a company name, or a secret.
+# Copied from the ICX book on 2026-10-22.
+version: 2.0.0
+updated: 2026-10-22
+rules:
+  max_code_len: 6
+  case: "UPPER for assistants and lanes; lower.dot for topics"
+  editor: ICOM
+  approver: MARIAG
+  secrets: "name the place a record or secret is kept; never write the value"
+  names: "no client name, matter name, or company name in a code"
+verbs:
+  GO: start, or approved to proceed
+  HOLD: pause; do not proceed
+  DONE: completed
+  BLOCKED: cannot proceed; needs ask=
+  REC: recommendation; an action may follow the verb (REC HOLD)
+  FYI: info only; no reply expected
+  ASK: question that needs an answer
+  ACK: received and understood
+  NAK: rejected, or cannot parse
+priority:
+  P0: now; drop everything else
+  P1: today
+  P2: this week
+  P3: whenever
+agents:  # UPPER, 6 characters or fewer. Neutral codes. Never a client name.
+  MARIAG: "Maria G, chief of staff; only assistant who speaks to Charles; approves codebook changes"
+  JEN: "Jen, calendar and email"
+  GAUNT: "Gauntlet, independent reviewer of accuracy and completeness"
+  POLL: "Inbox Puller for the attorney inbox"
+  ICOM: "router; only editor of this codebook"
+  CTO: "technology"
+  TEAMS: "Teams Bot"
+  CFO: "finance lead"
+  CLAP: "comptroller CLAP"
+  CILL: "comptroller CILL"
+  CCLR: "comptroller CCLR"
+  CWAT: "comptroller CWAT"
+  CMON: "comptroller CMON"
+  CPRE: "comptroller CPRE"
+  CBIG: "comptroller CBIG"
+  CFUN: "comptroller CFUN"
+  CWES: "comptroller CWES"
+  TRAV: "Travel Agent"
+  FLT: "flights"
+  HTL: "hotels"
+  CAR: "rental cars"
+  REST: "restaurants"
+  TRV: "travel review"
+reports:  # org line. Comptrollers report only to CFO. Travel sub-bots report to TRAV. Everyone else reports to MARIAG.
+  JEN: MARIAG
+  GAUNT: MARIAG
+  POLL: MARIAG
+  ICOM: MARIAG
+  CTO: MARIAG
+  TEAMS: MARIAG
+  CFO: MARIAG
+  CLAP: CFO
+  CILL: CFO
+  CCLR: CFO
+  CWAT: CFO
+  CMON: CFO
+  CPRE: CFO
+  CBIG: CFO
+  CFUN: CFO
+  CWES: CFO
+  TRAV: MARIAG
+  FLT: TRAV
+  HTL: TRAV
+  CAR: TRAV
+  REST: TRAV
+  TRV: TRAV
+clients:  # lanes. The only lane in this book is the internal one. Client, matter, and company names are not codes.
+  INT0: "internal; no client"
+pilot:  # first week. ICOM NAKs any other sender with why=pilot until MARIAG ends it.
+  senders: [MARIAG, JEN, GAUNT, ICOM]
+  end: "MARIAG sends GO org.agent to ICOM on a ticket. ICOM then removes this block."
+money:
+  rule: "No money moves without Charles's explicit approval, routed through MARIAG."
+  approval_topic: fin.paybl.apprv
+  standing_topic: org.rule.apprv
+  remind_only: [fin.payrl]
+  holds: [fin.paybl, fin.fee.refund]
+objects:  # ICX topic codes. Every prefix listed in the ICX book is a valid topic.
+  org: assistants, rules, protocol
+  pr: client services
+  sys: systems and platforms
+  ops: process and delivery
+  mk: marketing
+  fin: finance
+  lg: legal practice and compliance
+  rs: research
+  dt: data and reporting
+  x: "unclassed; send as x.<word> and reclassify within 7 days"
+  org.proto: communication protocol
+  org.rule: standing rules
+  org.rule.apprv: no payment without attorney approval
+  org.agent: assistant roster
+  org.agent.mariag: Maria G, chief of staff, codebook approver
+  org.agent.jen: Jen, calendar and email
+  org.agent.gaunt: Gauntlet, accuracy and completeness review
+  org.agent.poll: Inbox Puller, attorney Outlook inbox
+  org.agent.icom: ICOM, router and codebook editor
+  org.agent.cto: CTO Bot, technology
+  org.agent.teams: Teams Bot
+  org.agent.cfo: CFO Bot, finance lead
+  org.agent.cfo.clap: comptroller CLAP
+  org.agent.cfo.cill: comptroller CILL
+  org.agent.cfo.cclr: comptroller CCLR
+  org.agent.cfo.cwat: comptroller CWAT
+  org.agent.cfo.cmon: comptroller CMON
+  org.agent.cfo.cpre: comptroller CPRE
+  org.agent.cfo.cbig: comptroller CBIG
+  org.agent.cfo.cfun: comptroller CFUN
+  org.agent.cfo.cwes: comptroller CWES
+  org.agent.trav: Travel Agent Bot
+  org.agent.trav.flt: Flight
+  org.agent.trav.htl: Hotel
+  org.agent.trav.car: Rental car
+  org.agent.trav.rest: Restaurant
+  org.agent.trav.trv: Travel review
+  org.codebk: codebook (editor ICOM, approver MARIAG)
+  pr.intake: client intake
+  pr.cnslt: consultations
+  pr.appt: appointments
+  pr.appt.book: appointment booking
+  pr.appt.rebook: appointment reschedule
+  pr.appt.cancel: appointment cancellation
+  sys.crm: Cogent CRM (GoHighLevel)
+  sys.crm.lead: CRM leads
+  sys.crm.sms: CRM texting
+  sys.crm.remind: CRM reminders
+  sys.crm.report: CRM reporting
+  sys.mail: email
+  sys.mail.inbox: inbox read
+  sys.mail.triage: email triage
+  sys.mail.draft: email drafting
+  sys.cal: calendar
+  sys.cal.sched: scheduling
+  sys.teams: Microsoft Teams
+  sys.teams.ask: Teams questions and replies
+  sys.it: IT support
+  sys.it.access: accounts and access
+  sys.docket: Iron Docket
+  ops.ticket: task tickets (Iron Docket)
+  ops.ticket.new: ticket created
+  ops.ticket.due: ticket due
+  ops.ticket.block: ticket blocked
+  ops.ticket.review: ticket in review
+  ops.ticket.done: ticket done
+  ops.qc: accuracy and completeness review
+  ops.trav: travel
+  ops.trav.flt: flights
+  ops.trav.htl: hotels
+  ops.trav.car: rental cars
+  ops.trav.rest: restaurants
+  ops.trav.revw: travel review
+  mk.cont: content
+  mk.camp: campaigns
+  fin.book: bookkeeping
+  fin.paybl: payables
+  fin.paybl.apprv: attorney approval before payment
+  fin.recv: receivables
+  fin.payrl: payroll reminders
+  fin.report: finance reports
+  fin.fee: retainers and fees
+  fin.fee.retain: retainers
+  fin.fee.refund: fee and appointment refunds
+  lg.bk: bankruptcy
+  lg.debt: debt settlement and consumer debt defense
+  lg.lt: landlord-tenant
+  lg.court: court
+  lg.court.file: court filings
+  lg.court.efil: e-filing
+  lg.court.efil.reject: e-filing rejections
+  lg.court.hear: hearings
+  lg.deadln: deadlines
+  lg.docreq: document requests
+  rs.legal: legal research
+  rs.case: case research
+  dt.dash: dashboards
+  dt.kpi: KPIs
+facets:
+  cfg: config
+  err: incident or bug
+  doc: documentation
+  test: test or QC
+  cost: spend
+  plan: plan or design
+  "st.*": US state jurisdiction, e.g. st.pa
+  "v.*": version, e.g. v.2
+tombstones: {}  # none yet
+fields:
+  f: "file path or record location; reference it, do not restate the contents"
+  ref: "name of the place a record or secret is kept; never the value"
+  fn: function or service name
+  v: version or deploy id
   rb: rollback target
   n: count
   err: error count
-  why: reason list (comma-sep)
-  ask: what you need from recipient (alternatives with |)
-  nx: next step, AGENT:action
-  own: owner
-  cc: copy agents
-  ret: what to report back
-  until: deadline/resume time
-  qa: test result AGENT:pass/total
-  impact: client impact (0 = none)
-  scope: client/tenant scope (e.g. scope=CL14)  # added 1.4.0
-paths:       # optional aliases, expand by prefix
+  why: reason; comma-separated if more than one
+  ask: what you need from the recipient; alternatives separated by |
+  nx: next step, written AGENT:action
+  own: owner code
+  cc: other assistant codes to copy, comma-separated
+  ret: what to report back, written AGENT:action
+  until: deadline or resume time
+  qa: review result, written AGENT:pass/total
+  impact: impact count; 0 means none
+  scope: "client or matter id only; never a name"
+  co: "company selector; a comptroller code only; never the company name"
+  ok: count of compliant messages in an audit
+  bloat: count of bloated messages in an audit
+  bad: count of noncompliant messages in an audit
+paths:
   "%w": ~/work

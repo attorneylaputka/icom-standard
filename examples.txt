@@ -1,52 +1,71 @@
+# One made-up internal handoff. No client name, matter name, company name, or secret.
+# The firm sends the v1 line. The other blocks show the same handoff for comparison.
+# Assistants write @FROM>ICOM>TO. A line ICOM itself sends is @ICOM>TO.
+
 ## en
-Hi Lead, this is the Integrations Engineer. I wanted to let you know that I have finished fixing the contacts import for the CL13 client. The cl-lookup function was deployed as version 263aa210, and if anything goes wrong you can roll back to version ea8ed0e6. All 412 contacts were re-imported successfully with zero errors. The full log is saved at ~/work/logs/contacts-import.log. No action is needed from you, but QC agent should spot-check ten records.
+Maria, this is Jen. Ticket T-1001 is done: the consultation appointment is booked. One booking, no errors. The note is at ~/work/logs/appt-book.log. Please have Gauntlet review that note.
 
 ## house
-TL;DR: DONE. contacts import fixed for CL13; cl-lookup 263aa210 (rollback ea8ed0e6); 412 contacts re-imported, 0 errors.
-D: deployed cl-lookup 263aa210
-R: QC agent spot-check 10 records
-F: ~/work/logs/contacts-import.log
-A: none for LEAD
+TL;DR: DONE. Consultation appointment booked on #T-1001. One booking, no errors.
+D: booked
+R: GAUNT review the note
+F: ~/work/logs/appt-book.log
+A: none for MARIAG
 
 ## v1
-@INT>LEAD P2 CL13 DONE contacts.import fixed fn=cl-lookup v=263aa210 rb=ea8ed0e6 n=412 err=0 f=~/work/logs/contacts-import.log nx=QC:spot10
+@JEN>ICOM>MARIAG P2 INT0 #T-1001 DONE pr.appt.book n=1 err=0 f=~/work/logs/appt-book.log nx=GAUNT:review cc=GAUNT
 
 ## json_pretty
 {
-  "frm": "INT",
-  "to": "LEAD",
+  "frm": "JEN",
+  "to": "MARIAG",
   "pri": 2,
-  "client": "CL13",
+  "lane": "INT0",
+  "ticket": "#T-1001",
   "verb": "DONE",
-  "obj": "contacts.import",
-  "status": "fixed",
-  "fn": "cl-lookup",
-  "ver": "263aa210",
-  "rollback": "ea8ed0e6",
-  "n": 412,
+  "topic": "pr.appt.book",
+  "n": 1,
   "err": 0,
-  "file": "~/work/logs/contacts-import.log",
-  "next": "QC:spot10"
+  "file": "~/work/logs/appt-book.log",
+  "next": "GAUNT:review",
+  "cc": "GAUNT"
 }
 
 ## json_min
-{"frm":"INT","to":"LEAD","pri":2,"client":"CL13","verb":"DONE","obj":"contacts.import","status":"fixed","fn":"cl-lookup","ver":"263aa210","rollback":"ea8ed0e6","n":412,"err":0,"file":"~/work/logs/contacts-import.log","next":"QC:spot10"}
+{"frm":"JEN","to":"MARIAG","pri":2,"lane":"INT0","ticket":"#T-1001","verb":"DONE","topic":"pr.appt.book","n":1,"err":0,"file":"~/work/logs/appt-book.log","next":"GAUNT:review","cc":"GAUNT"}
 
 ## toon
-frm: INT
-to: LEAD
+frm: JEN
+to: MARIAG
 pri: 2
-client: CL13
+lane: INT0
+ticket: #T-1001
 verb: DONE
-obj: contacts.import
-status: fixed
-fn: cl-lookup
-ver: 263aa210
-rollback: ea8ed0e6
-n: 412
+topic: pr.appt.book
+n: 1
 err: 0
-file: ~/work/logs/contacts-import.log
-next: QC:spot10
+file: ~/work/logs/appt-book.log
+next: GAUNT:review
+cc: GAUNT
 
 ## b64_v1
-QElOVD5MRUFEIFAyIENMMTMgRE9ORSBjb250YWN0cy5pbXBvcnQgZml4ZWQgZm49Y2wtbG9va3VwIHY9MjYzYWEyMTAgcmI9ZWE4ZWQwZTYgbj00MTIgZXJyPTAgZj1+L3dvcmsvbG9ncy9jb250YWN0cy1pbXBvcnQubG9nIG54PVFDOnNwb3QxMA==
+QEpFTj5JQ09NPk1BUklBRyBQMiBJTlQwICNULTEwMDEgRE9ORSBwci5hcHB0LmJvb2sgbj0xIGVycj0wIGY9fi93b3JrL2xvZ3MvYXBwdC1ib29rLmxvZyBueD1HQVVOVDpyZXZpZXcgY2M9R0FVTlQ=
+
+## lines
+# Well-formed lines. tools/icom_validate.py checks every @ line in this file.
+# Lines from MARIAG, JEN, GAUNT, and ICOM are in the pilot. Lines from CFO, FLT, POLL, and CTO are the shape after MARIAG ends the pilot.
+@JEN>ICOM>MARIAG P2 INT0 #T-1001 DONE pr.appt.book n=1 err=0 f=~/work/logs/appt-book.log nx=GAUNT:review cc=GAUNT
+@GAUNT>ICOM>MARIAG P2 INT0 #T-1001 DONE ops.qc qa=GAUNT:1/1 f=~/work/logs/appt-book.log
+@MARIAG>ICOM>JEN P2 INT0 #T-1001 ACK pr.appt.book
+@CFO>ICOM>MARIAG P1 INT0 #T-1002 REC fin.paybl.apprv co=CLAP ask=approve|hold
+@MARIAG>ICOM>CFO P1 INT0 #T-1002 GO fin.paybl.apprv co=CLAP
+@CFO>ICOM>CLAP P1 INT0 #T-1002 GO fin.paybl co=CLAP
+@FLT>ICOM>TRAV P3 INT0 #T-1003 FYI ops.trav.flt n=1 f=~/work/logs/flt-1003.log
+@POLL>ICOM>JEN P2 INT0 #T-1004 ASK sys.mail.triage n=4 ret=JEN:draft
+@JEN>ICOM>MARIAG P2 INT0 #T-1001 REC HOLD pr.appt.rebook why=conflict ask=rebook|cancel cc=GAUNT
+@ICOM>CFO P2 INT0 #T-1005 NAK fin.paybl why=no-apprv
+@ICOM>JEN P2 INT0 NAK org.proto why=no-ticket
+@ICOM>MARIAG P3 INT0 #T-1006 FYI ops.qc ok=12 bloat=1 bad=0 f=~/work/icom/audit/latest.txt
+@JEN>ICOM>MARIAG P2 INT0 #T-1009 FYI lg.bk~st.pa n=1 f=~/work/logs/research-1009.log
+@ICOM>MARIAG P3 INT0 #T-1010 FYI x.extra n=1
+@CTO>ICOM>MARIAG P3 INT0 #T-1011 FYI sys.it~v.2 f=~/work/logs/it-1011.log
